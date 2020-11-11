@@ -1,5 +1,6 @@
 package dev.jaxi;
 
+import java.io.File;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -11,7 +12,7 @@ public class WebScraper {
         System.out.println("testing");
         try {
             URL url = new URL("https://jaxi.dev");
-            Files.copy(url.openStream(), Paths.get("index.html"));
+            File httpDoc = new File(String.valueOf(Files.copy(url.openStream(), Paths.get("index.html"))));
         } catch(Exception e) {
             System.out.print(e);
         }
