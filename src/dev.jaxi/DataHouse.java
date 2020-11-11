@@ -23,8 +23,7 @@ public class DataHouse {
         this.unWordCount = unWordCount;
     }
     public static void main(String[] args){
-        String[] f="f f f f ff f f f f f f f f f f, f f f".split("[ ,]+");
-    System.out.println(f);
+
     }
 }
 class TagType {
