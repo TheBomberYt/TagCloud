@@ -16,8 +16,10 @@ public class WebScraper {
 
         try {
             URL url = new URL("https://jaxi.dev");
-            String.valueOf(Files.copy(url.openStream(), Paths.get("index.html")));
             File httpDoc = new File("index.html");
+            if(httpDoc.exists()) httpDoc.delete();
+            String.valueOf(Files.copy(url.openStream(), Paths.get("index.html")));
+
             //File test = new File(Paths.get("index.html"));
             FileReader httpDocString = new FileReader(httpDoc);
             final StringBuilder builder = new StringBuilder();
