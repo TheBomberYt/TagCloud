@@ -21,8 +21,7 @@ public class WebScraper {
             //File test = new File(Paths.get("index.html"));
             FileReader httpDocString = new FileReader(httpDoc);
             final StringBuilder builder = new StringBuilder();
-            Files.lines(Paths.get("index.html"), StandardCharsets.UTF_8).forEach((val)->
-                builder.append(val));
+            Files.lines(Paths.get("index.html"), StandardCharsets.UTF_8).forEach((val)-> builder.append(val)); //lambda go brrr
             String concatenatedString = builder.toString();
             System.out.print(concatenatedString);
         } catch(Exception e) {
