@@ -4,8 +4,8 @@ Group Project
 
 - [x] Setup Github
 - [x] WebScraper
-- [ ] Data Housing
 - [ ] Data Manipulation/cleaning
+- [ ] Data Housing
 - [ ] Counting tags/words for tag cloud
 - [ ] Graphics for tag cloud
 
