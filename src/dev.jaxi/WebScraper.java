@@ -6,6 +6,9 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class WebScraper {
 
@@ -13,7 +16,7 @@ public class WebScraper {
 
 
         try {
-            URL url = new URL("https://jaxi.dev");
+            URL url = new URL("https://www.cfisd.net");
             File httpDoc = new File("index.html");
             if(httpDoc.exists()) httpDoc.delete();
 
@@ -24,9 +27,15 @@ public class WebScraper {
             Files.lines(Paths.get("index.html"), StandardCharsets.UTF_8).forEach((val)-> builder.append(val)); //lambda go brrr
             String rawHtmlString = builder.toString();
 
-            DataHouse YeahBoi =new DataHouse(rawHtmlString);
+            DataHouse YeahBoi = new DataHouse(rawHtmlString);
             //rawHtmlString = rawHtmlString.replaceAll("\\<.*?\\>", "");
             //System.out.print(rawHtmlString);
+
+            /*
+            List<String> al = new ArrayList<String>();
+            al = Arrays.asList(rawHtmlString.split("<([A-Z][A-Z0-9]*)\\b[^>]*>.*?</\\1>"));
+            System.out.println(al);
+            */
         } catch(Exception e) {
             System.out.print(e);
         }
