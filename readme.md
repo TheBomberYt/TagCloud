@@ -6,7 +6,7 @@ Group Project
 - [x] WebScraper
 - [ ] Data Manipulation/cleaning
 - [ ] Data Housing
-- [ ] Counting tags/words for tag cloud
+- [ ] Counting tags/words/points for tag cloud
 - [ ] Graphics for tag cloud
 
 <h2 style="color:red;font-family:courier">Ethan's work</h2>
