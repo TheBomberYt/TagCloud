@@ -4,11 +4,12 @@ public class DataHouse {
     private ArrayList<String> uniqueWords;
     private TreeMap<String,Integer> unWordCount;
     private TreeMap<TagType,Integer> tagScores;
-
-    public static void process(String rawHtmlString) {
+    public DataHouse(String data){
+    process(data);
+    }
+    public void process(String str) {
 
     }
-
     public ArrayList<String> getUniqueWords() {
         return uniqueWords;
     }

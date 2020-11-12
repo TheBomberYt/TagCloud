@@ -24,7 +24,7 @@ public class WebScraper {
             Files.lines(Paths.get("index.html"), StandardCharsets.UTF_8).forEach((val)-> builder.append(val)); //lambda go brrr
             String rawHtmlString = builder.toString();
 
-            DataHouse.process(rawHtmlString);
+            DataHouse YeahBoi =new DataHouse(rawHtmlString);
             //rawHtmlString = rawHtmlString.replaceAll("\\<.*?\\>", "");
             //System.out.print(rawHtmlString);
         } catch(Exception e) {
