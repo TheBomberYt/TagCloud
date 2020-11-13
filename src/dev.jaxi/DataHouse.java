@@ -24,8 +24,13 @@ public class DataHouse {
     public void process(String str) {
     String[] temp=str.split("\n");
     for(int x=0;x<temp.length;x++){
+        if(tagScores.get(temp[x].replaceAll("<.*>",""))!=null){
+            unWordScores.put(temp[x].replaceAll("<.*>",""),1);
+        }else if(unWordScores.get(temp[x].replaceAll("<.*>",""))!=null){
+            unWordScores.put(temp[x].replaceAll("<.*>",""),unWordScores.get(temp[x].replaceAll("<.*>",""))+tagScores.get(temp[x]));
+        }else {unWordScores.put(temp[x].replaceAll("<.*>",""),tagScores.get(temp[x]));
+    }}
 
-    }
     }
     public ArrayList<String> getWords() {
         return Words;
