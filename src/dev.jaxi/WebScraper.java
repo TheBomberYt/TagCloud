@@ -8,7 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Map;
+
 
 public class WebScraper {
 
@@ -28,8 +29,17 @@ public class WebScraper {
             String rawHtmlString = builder.toString();
 
             DataHouse YeahBoi = new DataHouse(rawHtmlString);
+            System.out.println("tagScores");
+            for(Map.Entry<String,Integer> map:YeahBoi.getTagScores().entrySet()){
+                System.out.println("Key: "+map.getKey()+"|Value: "+map.getValue());
+            }
+            System.out.println("UnWords");
+            for(Map.Entry<String,Integer> map:YeahBoi.getUnWordScores().entrySet()){
+                System.out.println("Key: "+map.getKey()+"|Value: "+map.getValue());
+            }
             //rawHtmlString = rawHtmlString.replaceAll("\\<.*?\\>", "");
             //System.out.print(rawHtmlString);
+
 
             /*
             List<String> al = new ArrayList<String>();

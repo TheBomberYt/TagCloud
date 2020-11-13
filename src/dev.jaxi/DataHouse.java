@@ -4,7 +4,7 @@ import java.util.regex.*;
 import java.lang.*;
 public class DataHouse {
     private ArrayList<String> Words;
-    private TreeMap<String,Integer> unWordScores;
+    private TreeMap<String,Integer> unWordScores=new TreeMap<String, Integer>();
     private static TreeMap<String,Integer> tagScores = new TreeMap<String, Integer>();
 
     public DataHouse(String data){
@@ -22,13 +22,11 @@ public class DataHouse {
         process(data);
     }
     public void process(String str) {
-    String[] temp=str.split("\n");
-    for(int x=0;x<temp.length;x++){
-        if(tagScores.get(temp[x].replaceAll("<.*>",""))!=null){
-            unWordScores.put(temp[x].replaceAll("<.*>",""),1);
-        }else if(unWordScores.get(temp[x].replaceAll("<.*>",""))!=null){
-            unWordScores.put(temp[x].replaceAll("<.*>",""),unWordScores.get(temp[x].replaceAll("<.*>",""))+tagScores.get(temp[x]));
-        }else {unWordScores.put(temp[x].replaceAll("<.*>",""),tagScores.get(temp[x]));
+        String temp = str.replaceAll("<([A-Z][A-Z0-9]*)\\b[^>]*>.*?</\\1>","");
+        String[] test = temp.split("              ");
+    for( String x:temp){
+        String tag="x";
+
     }}
 
     }
@@ -39,6 +37,15 @@ public class DataHouse {
     public TreeMap<String, Integer> getTagScores() {
         return tagScores;
     }
+
+    public void setUnWordScores(TreeMap<String, Integer> unWordScores) {
+        this.unWordScores = unWordScores;
+    }
+
+    public TreeMap<String, Integer> getUnWordScores() {
+        return unWordScores;
+    }
+
     public static void main(String[] args){
     System.out.println("");
     }
