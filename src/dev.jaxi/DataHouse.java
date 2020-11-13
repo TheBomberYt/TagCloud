@@ -24,12 +24,12 @@ public class DataHouse {
     public void process(String str) {
         String temp = str.replaceAll("<([A-Z][A-Z0-9]*)\\b[^>]*>.*?</\\1>","");
         String[] test = temp.split("              ");
-    for( String x:temp){
-        String tag="x";
+    for( String x:test){
+        String tag=x;
 
     }}
 
-    }
+
     public ArrayList<String> getWords() {
         return Words;
     }
