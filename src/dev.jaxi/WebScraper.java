@@ -30,7 +30,7 @@ public class WebScraper {
         } catch(Exception e) {
             System.out.print(e);
         }
-
+    //
     //str.replaceAll("\\<.*?\\>", "")
     }
 
