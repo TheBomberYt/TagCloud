@@ -22,12 +22,24 @@ public class DataHouse {
         process(data);
     }
     public void process(String str) {
+
+        /*
         String temp = str.replaceAll("<([A-Z][A-Z0-9]*)\\b[^>]*>.*?</\\1>","");
         String[] test = temp.split("              ");
     for( String x:test){
-        String tag=x;
+        String tag=x;}
+        */
 
-    }}
+        Pattern p = Pattern.compile("<p>(.*?)</p>");
+        Matcher m = p.matcher(str);
+
+        while (m.find())
+        {
+            String codeGroup = m.group(0);
+            System.out.format("'%s'\n", codeGroup); //Put codeGroup into tree map maybe?
+        }
+    }
+
 
 
     public ArrayList<String> getWords() {
