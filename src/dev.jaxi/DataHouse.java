@@ -7,6 +7,7 @@ public class DataHouse {
     private static TreeMap<String,Integer> tagScores = new TreeMap<String, Integer>();
     public DataHouse(String data){
         process(data);
+        TagCloud YeahBoi2 = new TagCloud(tagScores);
     }
     public void process(String str) {
 
@@ -60,9 +61,6 @@ public class DataHouse {
         return sanitizedHTML;
     }
 
-
-
-
     public ArrayList<String> getWords() {
         return Words;
     }
@@ -70,8 +68,6 @@ public class DataHouse {
     public TreeMap<String, Integer> getTagScores() {
         return tagScores;
     }
-
-    
 
     public static void main(String[] args){
     System.out.println("");
