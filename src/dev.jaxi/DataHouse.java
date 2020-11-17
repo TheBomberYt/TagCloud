@@ -3,20 +3,20 @@ import java.util.*;
 import java.util.regex.*;
 import java.lang.*;
 public class DataHouse {
-    private ArrayList<String> Words;
+
+    private ArrayList<String> wordsList;
     private static TreeMap<String,Integer> tagScores = new TreeMap<String, Integer>();
+
     public DataHouse(String data){
+
         process(data);
         TagCloud YeahBoi2 = new TagCloud(tagScores);
+
     }
     public void process(String str) {
 
-        /*
-        String temp = str.replaceAll("<([A-Z][A-Z0-9]*)\\b[^>]*>.*?</\\1>","");
-        String[] test = temp.split("              ");
-    for( String x:test){
-        String tag=x;}
-        */
+        ArrayList<String> cleanWordList = arrayifyStringAndClean(sanitizeHTML(str));
+
 
         Pattern p = Pattern.compile("<p>(.*?)</p>");
         Pattern h1 = Pattern.compile("<h1>(.*?)</h1>");
@@ -39,18 +39,96 @@ public class DataHouse {
         Matcher hrefm = href.matcher(str);
         Matcher lim = li.matcher(str);
 
+        //String sanitizedHTML = sanitizeHTML(str);
+
         while (pm.find())
         {
             // Worth one point
             String ps = pm.group(1);
-            arrayifyStringAndClean(sanitizeHTML(ps)).forEach(string -> houseData(string, 1));
-           // houseData() // Store in treeMap
-            System.out.print(tagScores);
+            cleanWordList.forEach(string -> houseData(string.toLowerCase(), 1));
 
         }
-    }
+        while (h1m.find())
+        {
+            // Worth one point
+            String h1s = h1m.group(1);
+            cleanWordList.forEach(string -> houseData(string.toLowerCase(), 10));
 
+        }
+
+        while (h2m.find())
+        {
+            // Worth one point
+            String h2s = h2m.group(1);
+            cleanWordList.forEach(string -> houseData(string.toLowerCase(), 8));
+
+        }
+        while (h3m.find())
+        {
+            // Worth one point
+            String h3s = h3m.group(1);
+            cleanWordList.forEach(string -> houseData(string.toLowerCase(), 6));
+
+        }
+        while (h4m.find())
+        {
+            // Worth one point
+            String h4s = h4m.group(1);
+            cleanWordList.forEach(string -> houseData(string.toLowerCase(), 4));
+
+        }
+        while (h5m.find())
+        {
+            // Worth one point
+            String h5s = h5m.group(1);
+            cleanWordList.forEach(string -> houseData(string.toLowerCase(), 2));
+
+        }
+        while (h6m.find())
+        {
+            // Worth one point
+            String h6s = h6m.group(1);
+            cleanWordList.forEach(string -> houseData(string.toLowerCase(), 1));
+
+        }
+        while (titlem.find())
+        {
+            // Worth one point
+            String titles = titlem.group(1);
+            cleanWordList.forEach(string -> houseData(string.toLowerCase(), 10));
+
+        }
+        while (hrefm.find())
+        {
+            // Worth one point
+            String hrefs = hrefm.group(1);
+            cleanWordList.forEach(string -> houseData(string.toLowerCase(), 5));
+
+        }
+        while (lim.find())
+        {
+            // Worth one point
+            String lis = lim.group(1);
+            cleanWordList.forEach(string -> houseData(string.toLowerCase(), 1));
+
+        }
+        tagScores.remove("");
+        tagScores.remove("+");
+        //putIntoTagScores(h1m, 10);
+        System.out.println(tagScores);
+
+    }
+    public void putIntoTagScores(Matcher mat, int value) {
+
+        String matString = mat.group(1);
+
+        while(mat.find()) {
+            arrayifyStringAndClean(sanitizeHTML(matString)).forEach(string -> houseData(string.toLowerCase(), value));
+        }
+
+    }
     public TreeMap<String, Integer> houseData(String tag, int value) {
+
         if(tagScores.containsKey(tag)) {
             tagScores.put(tag, tagScores.get(tag)+value);
         } else
@@ -62,25 +140,30 @@ public class DataHouse {
     }
 
     public String sanitizeHTML(String unSanitizedHTML) {
+
         String sanitizedHTML = unSanitizedHTML.replaceAll("<(?:\"[^\"]*\"['\"]*|'[^']*'['\"]*|[^'\">])+>", "").replaceAll("[^a-zA-Z\\\\s+]", " ").replaceAll("&.*?;" , "").replace(".", " ").replace(",", "").replace(":", " ");
         sanitizedHTML = sanitizedHTML.replaceAll("[\\uFEFF-\\uFFFF]", "");
+
         return sanitizedHTML;
+
     }
     public ArrayList<String> arrayifyStringAndClean(String sanitizedHTML) {
+
         String[] words = (sanitizedHTML.split(" "));
-        ArrayList<String> wordsList = new ArrayList<String>(Arrays.asList(words));
+        wordsList = new ArrayList<String>(Arrays.asList(words));
+
         for(int i=0; i<wordsList.size(); i++) {
-            if(wordsList.get(i)=="\\\\s+"|| wordsList.get(i)=="nbsp" || wordsList.get(i).length()<2 || wordsList.get(i) == null || !(wordsList.get(i).substring(0,1) == "[^\\\\x20-\\\\x7e]")) {
+
+            if(wordsList.get(i).equals("\\\\s+")|| wordsList.get(i).equals("nbsp") || wordsList.get(i).length()<2 || wordsList.get(i) == null || (wordsList.get(i).equals(""))) {
                 wordsList.remove(i);
             }
+
         }
+
         return wordsList;
-
     }
 
-    public ArrayList<String> getWords() {
-        return Words;
-    }
+ //get methods are for chumps
 
 
 }
