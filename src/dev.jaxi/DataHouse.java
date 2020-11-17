@@ -1,4 +1,5 @@
 package dev.jaxi;
+
 import java.util.*;
 import java.util.regex.*;
 import java.lang.*;
@@ -70,6 +71,6 @@ public class DataHouse {
     }
 
     public static void main(String[] args){
-    System.out.println("");
+        System.out.println("");
     }
 }

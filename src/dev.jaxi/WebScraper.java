@@ -42,13 +42,12 @@ public class WebScraper {
             }
             //rawHtmlString = rawHtmlString.replaceAll("\\<.*?\\>", "");
             //System.out.print(rawHtmlString);
-
 */
         } catch(Exception e) {
             System.out.print(e);
         }
-    //
-    //str.replaceAll("\\<.*?\\>", "")
+        //
+        //str.replaceAll("\\<.*?\\>", "")
     }
 
 
