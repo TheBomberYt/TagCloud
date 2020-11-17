@@ -1,5 +1,6 @@
 package dev.jaxi;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.io.File;
 import java.io.FileReader;
 import java.net.URL;
@@ -8,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 
@@ -29,6 +31,7 @@ public class WebScraper {
             String rawHtmlString = builder.toString();
 
             DataHouse YeahBoi = new DataHouse(rawHtmlString);
+            /*
             System.out.println("tagScores");
             for(Map.Entry<String,Integer> map:YeahBoi.getTagScores().entrySet()){
                 System.out.println("Key: "+map.getKey()+"|Value: "+map.getValue());
@@ -40,12 +43,7 @@ public class WebScraper {
             //rawHtmlString = rawHtmlString.replaceAll("\\<.*?\\>", "");
             //System.out.print(rawHtmlString);
 
-
-            /*
-            List<String> al = new ArrayList<String>();
-            al = Arrays.asList(rawHtmlString.split("<([A-Z][A-Z0-9]*)\\b[^>]*>.*?</\\1>"));
-            System.out.println(al);
-            */
+*/
         } catch(Exception e) {
             System.out.print(e);
         }

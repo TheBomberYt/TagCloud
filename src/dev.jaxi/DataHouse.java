@@ -4,21 +4,8 @@ import java.util.regex.*;
 import java.lang.*;
 public class DataHouse {
     private ArrayList<String> Words;
-    private TreeMap<String,Integer> unWordScores=new TreeMap<String, Integer>();
     private static TreeMap<String,Integer> tagScores = new TreeMap<String, Integer>();
-
     public DataHouse(String data){
-        tagScores.put(".*< *h1.*>.*< */ *h1.*>.*",10);
-        tagScores.put(".*< *h2.*>.*< */ *h2.*>.*",8);
-        tagScores.put(".*< *h3.*>.*< */ *h3.*>.*",6);
-        tagScores.put(".*< *h4.*>.*< */ *h4.*>.*",4);
-        tagScores.put(".*< *h5.*>.*< */ *h5.*>.*",2);
-        tagScores.put(".*< *h6.*>.*< */ *h6.*>.*",1);
-        tagScores.put(".*< *a *href *= *\".*\".*>.*< */ *a *>.*",5);
-        tagScores.put(".*< *title.*< */ *title *>.*",10);
-        tagScores.put(".*< *ul .*>.*< *li .*>.*< */ *li *>.*< */ *ul *>",1);
-
-
         process(data);
     }
     public void process(String str) {
@@ -31,14 +18,48 @@ public class DataHouse {
         */
 
         Pattern p = Pattern.compile("<p>(.*?)</p>");
-        Matcher m = p.matcher(str);
+        Pattern h1 = Pattern.compile("<h1>(.*?)</h1>");
+        Pattern h2 = Pattern.compile("<h2>(.*?)</h2>");
+        Pattern h3 = Pattern.compile("<h3>(.*?)</h3>");
+        Pattern h4 = Pattern.compile("<h4>(.*?)</h4>");
+        Pattern h5 = Pattern.compile("<h5>(.*?)</h5>");
+        Pattern h6 = Pattern.compile("<h6>(.*?)</h6>");
+        Pattern title = Pattern.compile("<title>(.*?)</title>");
+        Pattern href = Pattern.compile("<a href =\"(.*?)\">(.*?)</a>");
+        Pattern li = Pattern.compile("<li>(.*?)</li>");
+        Matcher pm = p.matcher(str);
+        Matcher h1m = h1.matcher(str);
+        Matcher h2m = h2.matcher(str);
+        Matcher h3m = h3.matcher(str);
+        Matcher h4m = h4.matcher(str);
+        Matcher h5m = h5.matcher(str);
+        Matcher h6m = h6.matcher(str);
+        Matcher titlem = title.matcher(str);
+        Matcher hrefm = href.matcher(str);
+        Matcher lim = li.matcher(str);
 
-        while (m.find())
+        while (pm.find())
         {
-            String codeGroup = m.group(0);
-            System.out.format("'%s'\n", codeGroup); //Put codeGroup into tree map maybe?
+            String ps = pm.group(1);
+            ps = ps.replaceAll("<[/]?a[^>]*>", "");
+            System.out.print(sanitizeHTML(ps)); // Store in treeMap
+
         }
     }
+
+    public TreeMap<String, Integer> houseData(String tag, int value) {
+        if(tagScores.containsKey(tag)) {
+
+        }
+        return null;
+    }
+
+    public String sanitizeHTML(String unSanitizedHTML) {
+        String sanitizedHTML = unSanitizedHTML.replaceAll("<(?:\"[^\"]*\"['\"]*|'[^']*'['\"]*|[^'\">])+>", "").replaceAll("&.*?;" , "").replace(".", " ").replace(",", "").replace(":", " ");
+        sanitizedHTML = sanitizedHTML.replaceAll("[^a-zA-Z\\\\s+]", "");
+        return sanitizedHTML;
+    }
+
 
 
 
@@ -50,33 +71,9 @@ public class DataHouse {
         return tagScores;
     }
 
-    public void setUnWordScores(TreeMap<String, Integer> unWordScores) {
-        this.unWordScores = unWordScores;
-    }
-
-    public TreeMap<String, Integer> getUnWordScores() {
-        return unWordScores;
-    }
+    
 
     public static void main(String[] args){
     System.out.println("");
     }
-}
-class TagType {
-    public int value;
-    public TagType(String x){
-
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-
-    public int compareTo(TagType o) {
-        return value-o.getValue();
-    }
-
-
-
 }
