@@ -50,7 +50,7 @@ public class DataHouse {
         }
         while (h1m.find())
         {
-            // Worth one point
+            // Worth 10 points
             String h1s = h1m.group(1);
             cleanWordList.forEach(string -> houseData(string.toLowerCase(), 10));
 
@@ -58,28 +58,28 @@ public class DataHouse {
 
         while (h2m.find())
         {
-            // Worth one point
+            // Worth 8 points
             String h2s = h2m.group(1);
             cleanWordList.forEach(string -> houseData(string.toLowerCase(), 8));
 
         }
         while (h3m.find())
         {
-            // Worth one point
+            // Worth 6 points
             String h3s = h3m.group(1);
             cleanWordList.forEach(string -> houseData(string.toLowerCase(), 6));
 
         }
         while (h4m.find())
         {
-            // Worth one point
+            // Worth 4 points
             String h4s = h4m.group(1);
             cleanWordList.forEach(string -> houseData(string.toLowerCase(), 4));
 
         }
         while (h5m.find())
         {
-            // Worth one point
+            // Worth 2 points
             String h5s = h5m.group(1);
             cleanWordList.forEach(string -> houseData(string.toLowerCase(), 2));
 
@@ -93,14 +93,14 @@ public class DataHouse {
         }
         while (titlem.find())
         {
-            // Worth one point
+            // Worth 10 points
             String titles = titlem.group(1);
             cleanWordList.forEach(string -> houseData(string.toLowerCase(), 10));
 
         }
         while (hrefm.find())
         {
-            // Worth one point
+            // Worth 5 points
             String hrefs = hrefm.group(1);
             cleanWordList.forEach(string -> houseData(string.toLowerCase(), 5));
 
@@ -114,6 +114,7 @@ public class DataHouse {
         }
         tagScores.remove("");
         tagScores.remove("+");
+        tagScores.remove("amp");
         //putIntoTagScores(h1m, 10);
         System.out.println(tagScores);
 
@@ -141,6 +142,7 @@ public class DataHouse {
 
     public String sanitizeHTML(String unSanitizedHTML) {
 
+        //Stack Overflow told me it couldn't be done, but I NAILED IT! Sanitizing HTML with regex like a boss.
         String sanitizedHTML = unSanitizedHTML.replaceAll("<(?:\"[^\"]*\"['\"]*|'[^']*'['\"]*|[^'\">])+>", "").replaceAll("[^a-zA-Z\\\\s+]", " ").replaceAll("&.*?;" , "").replace(".", " ").replace(",", "").replace(":", " ");
         sanitizedHTML = sanitizedHTML.replaceAll("[\\uFEFF-\\uFFFF]", "");
 
