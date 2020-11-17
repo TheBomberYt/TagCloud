@@ -41,35 +41,46 @@ public class DataHouse {
 
         while (pm.find())
         {
+            // Worth one point
             String ps = pm.group(1);
-            ps = ps.replaceAll("<[/]?a[^>]*>", "");
-            System.out.print(sanitizeHTML(ps)); // Store in treeMap
+            arrayifyStringAndClean(sanitizeHTML(ps)).forEach(string -> houseData(string, 1));
+           // houseData() // Store in treeMap
+            System.out.print(tagScores);
 
         }
     }
 
     public TreeMap<String, Integer> houseData(String tag, int value) {
         if(tagScores.containsKey(tag)) {
+            tagScores.put(tag, tagScores.get(tag)+value);
+        } else
+            tagScores.put(tag, value);
 
-        }
-        return null;
+        //System.out.println(tagScores); //test to make sure it works
+        return tagScores;
+
     }
 
     public String sanitizeHTML(String unSanitizedHTML) {
-        String sanitizedHTML = unSanitizedHTML.replaceAll("<(?:\"[^\"]*\"['\"]*|'[^']*'['\"]*|[^'\">])+>", "").replaceAll("&.*?;" , "").replace(".", " ").replace(",", "").replace(":", " ");
-        sanitizedHTML = sanitizedHTML.replaceAll("[^a-zA-Z\\\\s+]", "");
+        String sanitizedHTML = unSanitizedHTML.replaceAll("<(?:\"[^\"]*\"['\"]*|'[^']*'['\"]*|[^'\">])+>", "").replaceAll("[^a-zA-Z\\\\s+]", " ").replaceAll("&.*?;" , "").replace(".", " ").replace(",", "").replace(":", " ");
+        sanitizedHTML = sanitizedHTML.replaceAll("[\\uFEFF-\\uFFFF]", "");
         return sanitizedHTML;
+    }
+    public ArrayList<String> arrayifyStringAndClean(String sanitizedHTML) {
+        String[] words = (sanitizedHTML.split(" "));
+        ArrayList<String> wordsList = new ArrayList<String>(Arrays.asList(words));
+        for(int i=0; i<wordsList.size(); i++) {
+            if(wordsList.get(i)=="\\\\s+"|| wordsList.get(i)=="nbsp" || wordsList.get(i).length()<2 || wordsList.get(i) == null || !(wordsList.get(i).substring(0,1) == "[^\\\\x20-\\\\x7e]")) {
+                wordsList.remove(i);
+            }
+        }
+        return wordsList;
+
     }
 
     public ArrayList<String> getWords() {
         return Words;
     }
 
-    public TreeMap<String, Integer> getTagScores() {
-        return tagScores;
-    }
 
-    public static void main(String[] args){
-    System.out.println("");
-    }
 }
