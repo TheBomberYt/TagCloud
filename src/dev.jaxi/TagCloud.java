@@ -43,16 +43,21 @@ public class TagCloud {
 class TagCloudPane extends JPanel {
 
     TreeMap<String, Integer> wordMap = TagCloud.wordMap;
+
     public Dimension getPreferredSize() {
+
         return new Dimension(1000, 600);
+
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.GREEN);
-        g.fillRect(0, 0, WIDTH, HEIGHT);
+        g.setColor(Color.BLUE);
+        g.fillRect(0, 0, getPreferredSize().width, getPreferredSize().height);
         g.setColor(Color.BLACK);
+
+
 
         g.drawString(wordMap.firstEntry().getKey(), 100, 100);
     }
