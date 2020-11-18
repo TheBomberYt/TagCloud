@@ -1,7 +1,11 @@
 package dev.jaxi;
-import java.util.*;
-import java.util.regex.*;
-import java.lang.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class DataHouse {
 
     private ArrayList<String> wordsList;
