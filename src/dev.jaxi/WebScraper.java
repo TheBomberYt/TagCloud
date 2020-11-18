@@ -5,13 +5,13 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
+import java.util.concurrent.TimeUnit;
 
 
 public class WebScraper {
 
     public static void main(String[] args) {
-
+        final long startTime = System.currentTimeMillis();;
 
         try {
             URL url = new URL("https://www.cfisd.net");
@@ -37,7 +37,12 @@ public class WebScraper {
             }
             //rawHtmlString = rawHtmlString.replaceAll("\\<.*?\\>", "");
             //System.out.print(rawHtmlString);
-*/
+
+
+            //Performance Benchmark
+*/          final long endTime = System.currentTimeMillis();;
+            System.out.println(endTime - startTime);
+
         } catch(Exception e) {
             System.out.print(e);
         }
