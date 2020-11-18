@@ -7,6 +7,11 @@ public class DataHouse {
     private ArrayList<String> wordsList;
     private static TreeMap<String,Integer> tagScores = new TreeMap<String, Integer>();
 
+    //optimizations of process() method by pre-compiling regex
+    public Pattern regexHTMLParse = Pattern.compile("<(?:\"[^\"]*\"['\"]*|'[^']*'['\"]*|[^'\">])+>");
+    public Pattern regexALPHAParse = Pattern.compile("[^a-zA-Z\\\\s+]");
+    public Pattern regexWHITESPACEParse = Pattern.compile("\\\\s+");
+
     public DataHouse(String data){
 
         process(data);
@@ -16,7 +21,6 @@ public class DataHouse {
     public void process(String str) {
 
         ArrayList<String> cleanWordList = arrayifyStringAndClean(sanitizeHTML(str));
-
 
         Pattern p = Pattern.compile("<p>(.*?)</p>");
         Pattern h1 = Pattern.compile("<h1>(.*?)</h1>");
@@ -55,7 +59,6 @@ public class DataHouse {
             cleanWordList.forEach(string -> houseData(string.toLowerCase(), 10));
 
         }
-
         while (h2m.find())
         {
             // Worth 8 points
@@ -107,14 +110,17 @@ public class DataHouse {
         }
         while (lim.find())
         {
-            // Worth one point
+            // Worth 1 point
             String lis = lim.group(1);
             cleanWordList.forEach(string -> houseData(string.toLowerCase(), 1));
 
         }
+
         tagScores.remove("");
         tagScores.remove("+");
         tagScores.remove("amp");
+        tagScores.remove("nbsp");
+
         //putIntoTagScores(h1m, 10);
         System.out.println(tagScores);
 
@@ -142,9 +148,8 @@ public class DataHouse {
 
     public String sanitizeHTML(String unSanitizedHTML) {
 
-        //Stack Overflow told me it couldn't be done, but I NAILED IT! Sanitizing HTML with regex like a boss.
-        String sanitizedHTML = unSanitizedHTML.replaceAll("<(?:\"[^\"]*\"['\"]*|'[^']*'['\"]*|[^'\">])+>", "").replaceAll("[^a-zA-Z\\\\s+]", " ").replaceAll("&.*?;" , "").replace(".", " ").replace(",", "").replace(":", " ");
-        sanitizedHTML = sanitizedHTML.replaceAll("[\\uFEFF-\\uFFFF]", "");
+        //Stack Overflow said it couldn't be done with regex lmao
+        String sanitizedHTML = unSanitizedHTML.replaceAll(regexHTMLParse.pattern(), "").replaceAll(regexALPHAParse.pattern(), " ").replaceAll("&.*?;" , "");
 
         return sanitizedHTML;
 
@@ -154,18 +159,17 @@ public class DataHouse {
         String[] words = (sanitizedHTML.split(" "));
         wordsList = new ArrayList<String>(Arrays.asList(words));
 
-        for(int i=0; i<wordsList.size(); i++) {
 
-            if(wordsList.get(i).equals("\\\\s+")|| wordsList.get(i).equals("nbsp") || wordsList.get(i).length()<2 || wordsList.get(i) == null || (wordsList.get(i).equals(""))) {
+        int size = wordsList.size();
+        for (int i = 0; i < size; i++) {
+            if (wordsList.get(i).equals(regexWHITESPACEParse.pattern()) || wordsList.get(i).length() < 2 || wordsList.get(i) == null || (wordsList.get(i).equals(""))) {
                 wordsList.remove(i);
             }
 
+            return wordsList;
         }
-
         return wordsList;
+
     }
-
- //get methods are for chumps
-
-
+    //get methods are for chumps
 }
