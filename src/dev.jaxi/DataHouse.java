@@ -26,6 +26,9 @@ public class DataHouse {
 
         ArrayList<String> cleanWordList = arrayifyStringAndClean(sanitizeHTML(str));
 
+        Pattern test = Pattern.compile("<p>(.*?)</p>|<h1>(.*?)</h1>|<h2>(.*?)</h2>|<h3>(.*?)</h3>|<h4>(.*?)</h4>|<h5>(.*?)</h5>|<h6>(.*?)</h6>|<title>(.*?)</title>|<a href =\"(.*?)\">(.*?)</a>|<li>(.*?)</li>");
+        Matcher testm = test.matcher(str);
+        /*
         Pattern p = Pattern.compile("<p>(.*?)</p>");
         Pattern h1 = Pattern.compile("<h1>(.*?)</h1>");
         Pattern h2 = Pattern.compile("<h2>(.*?)</h2>");
@@ -120,6 +123,11 @@ public class DataHouse {
 
         }
 
+ */
+        while(testm.find()) {
+            String tests = testm.group(1);
+            cleanWordList.forEach(string -> houseData(string.toLowerCase(), 1));
+        }
         tagScores.remove("");
         tagScores.remove("+");
         tagScores.remove("amp");

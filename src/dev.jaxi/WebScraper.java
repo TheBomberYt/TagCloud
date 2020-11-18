@@ -1,9 +1,11 @@
 package dev.jaxi;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
@@ -22,8 +24,22 @@ public class WebScraper {
             FileReader httpDocString = new FileReader(httpDoc);
             final StringBuilder builder = new StringBuilder();
 
-            Files.lines(Paths.get("index.html"), StandardCharsets.UTF_8).forEach((val)-> builder.append(val)); //lambda go brrr
+
+
+            //from https://www.oracle.com/technical-resources/articles/javase/perftuning.html
+            String fileName = "index.html";
+            try (FileReader reader = new FileReader(fileName);
+                 BufferedReader bufferedReader = new BufferedReader((reader))) {
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    builder.append(line);
+                }
+            }
             String rawHtmlString = builder.toString();
+
+            //Removed and replaced with optimization up above ^
+            //Files.lines(Paths.get("index.html"), StandardCharsets.UTF_8).forEach((val)-> builder.append(val)); //lambda go brrr
+            //String rawHtmlString = builder.toString();
 
             DataHouse YeahBoi = new DataHouse(rawHtmlString);
             /*
