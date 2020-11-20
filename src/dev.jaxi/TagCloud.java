@@ -129,7 +129,7 @@ class TagCloudPane extends JPanel {
         for (int x = 1; x < words.size(); x++) {
             int y=0;
             while(words.get(x).intersects(words,x)){
-                words.get(x).rect.setLocation(Vector.fromPolar(y,y));
+                words.get(x).rect.setLocation(Polar.fromPolar(y,y));
                 y++;
             }
         }
@@ -218,29 +218,7 @@ class Word{
     }
 
 }
-class Vector {
-    public final double x;
-    public final double y;
-
-    public Vector(double xIn, double yIn) {
-        x=TagCloudPane.dim.getWidth()/2-xIn;
-        y=TagCloudPane.dim.getWidth()/2-yIn;
-    }
-
-
-
-    public double getR() {
-        return Math.sqrt((x*x)+(y*y));
-    }
-
-    public double getTheta() {
-        return Math.atan(y/x);
-    }
-
-    public double bearingTo(Vector target) {
-        return (Math.atan2(target.y-y,target.x-x));
-    }
-
+class Polar {
     public static Point fromPolar(double magnitude, double angle) {
         return new Point((int)(magnitude * Math.cos(angle))+TagCloudPane.dim.width/2,
                 (int)(magnitude * Math.sin(angle))+TagCloudPane.dim.height/2);
