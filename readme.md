@@ -6,6 +6,6 @@ Group Project
 - [x] WebScraper
 - [x] Data Manipulation/cleaning
 - [x] Data Housing
-- [ ] Counting tags/words/points for tag cloud
-- [ ] Graphics for tag cloud
+- [x] Counting tags/words/points for tag cloud
+- [x] Graphics for tag cloud
 
