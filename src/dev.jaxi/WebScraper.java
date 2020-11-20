@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
-
+//Jax did this
 public class WebScraper {
 
     public static void main(String[] args) {
