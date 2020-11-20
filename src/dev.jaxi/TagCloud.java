@@ -41,7 +41,7 @@ public class TagCloud {
                 frame.setLayout(new BorderLayout());
                 TagCloudPane jeff=new TagCloudPane();
                 jeff.makeList();
-                jeff.placeWords();
+                jeff.placeWords(.9);
                 frame.add(jeff);
                 frame.pack();
                 frame.setLocationRelativeTo(null);
@@ -57,7 +57,7 @@ class TagCloudPane extends JPanel {
 
     public static Color[] color = new Color[6];
     public static ArrayList<Word> words = new ArrayList<Word>();
-    public static int width=1920,height=1080;
+    public static int width=(int)Toolkit.getDefaultToolkit().getScreenSize().getWidth(),height=(int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     public static Dimension dim=new Dimension(width,height);
     public TreeMap<String, Integer> wordMap = TagCloud.wordMap;
 
@@ -88,7 +88,7 @@ class TagCloudPane extends JPanel {
     }
 
     public int makeSize(int g) {
-            return 10*g/Average();
+            return (int) (Math.sqrt((((getPreferredSize().height*getPreferredSize().height)+(getPreferredSize().width*getPreferredSize().width)))))/(getPreferredSize().height/6)*g/Average();
 
     }
 
@@ -129,12 +129,12 @@ class TagCloudPane extends JPanel {
 
     }
 
-    public void placeWords() {final long startTime = System.currentTimeMillis();
+    public void placeWords(double g) {final long startTime = System.currentTimeMillis();
         for (int x = 1; x < words.size(); x++) {
             double y=0;
             while(words.get(x).intersects(words,x)){
                 words.get(x).rect.setLocation(Polar.fromPolar(y,y));
-                y+=.1;
+                y+=g;
             }
         }final long endTime = System.currentTimeMillis();;
         System.out.println(endTime - startTime);
@@ -215,8 +215,7 @@ class Word{
 }
 class Polar {
     public static Point fromPolar(double magnitude, double angle) {
-        return new Point((int)(magnitude * Math.cos(angle))+TagCloudPane.dim.width/2,
-                (int)(magnitude * Math.sin(angle))+TagCloudPane.dim.height/2);
+        return new Point((int)(magnitude * Math.cos(angle))+TagCloudPane.dim.width/2, (int)(magnitude * Math.sin(angle))+TagCloudPane.dim.height/2);
     }
 }
 
