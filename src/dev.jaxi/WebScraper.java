@@ -16,7 +16,7 @@ public class WebScraper {
         final long startTime = System.currentTimeMillis();;
 
         try {
-            URL url = new URL("https://www.cfisd.net");
+            URL url = new URL("https://www.cfisd.net/en");
             File httpDoc = new File("index.html");
             if(httpDoc.exists()) httpDoc.delete();
 
